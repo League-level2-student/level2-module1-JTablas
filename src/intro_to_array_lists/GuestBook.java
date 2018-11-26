@@ -1,16 +1,26 @@
 package intro_to_array_lists;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class GuestBook {
+public class GuestBook implements ActionListener {
 	// Create a GUI with two buttons. One button reads "Add Name" and the other button reads "View Names". 
+	public static void main(String[] args) {
+		new GuestBook().start();
+	}
 	
 	JFrame frame;
 	JPanel panel;
 	JButton add;
 	JButton view;
+	
+	ArrayList<String> names = new ArrayList<String>();
 	
 	public void start(){
 		 frame = new JFrame();
@@ -28,13 +38,12 @@ public class GuestBook {
 		view.setText("View Names");
 	
 		frame.add(panel);
+		add.addActionListener(this);
 		panel.add(add);
-		//add.addActionListener();
+		view.addActionListener(this);
 		panel.add(view);
-		//view.addActionListener(this);
 		frame.pack();
 		
-		//if(ButtonPressed==add){
 		
 		
 		
@@ -47,4 +56,26 @@ public class GuestBook {
 	// Guest #2: Sandy Summers
 	// Guest #3: Greg Ganders
 	// Guest #4: Donny Doners
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		JButton buttonClicked=(JButton)arg0.getSource();
+		
+		if(add==buttonClicked){
+			String person = JOptionPane.showInputDialog("Enter a guest.");
+			//System.out.println(person);
+			names.add(person);
+			//System.out.println(names);
+			
+		} if(view==buttonClicked){
+			String fin ="";
+			for (int i = 0; i < names.size(); i++) {
+			String s=names.get(i);	
+			fin += "Guest #" + i + ": "+s + "\n";
+			
+		}
+			JOptionPane.showMessageDialog(null, fin);
+		}
+	}
 }
