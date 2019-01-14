@@ -27,7 +27,8 @@ public class LeagueInvaders {
 	void setup() {
 	frame.add(game);
 	frame.getContentPane().setPreferredSize(new Dimension(width, height));
-
+	frame.addKeyListener(game);
+	
     frame.pack();
     frame.setVisible(true);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
