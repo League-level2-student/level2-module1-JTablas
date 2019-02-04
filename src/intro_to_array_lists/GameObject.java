@@ -18,14 +18,15 @@ GameObject(int x, int y, int width, int height){
 	
 	void update (){
 		
-	x+=10;
-	}
+			
+			
+		}		
+	
 		
 	
 
 	void draw(Graphics g) {
-		System.out.println(x);
-		g.fillRect(x,y,100, 100);
+	
 
 	
 	}
