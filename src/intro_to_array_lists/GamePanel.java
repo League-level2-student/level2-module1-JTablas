@@ -24,15 +24,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font titleFont=new Font("Arial",Font.PLAIN,48);
 	Font instruction=new Font("Arial",Font.PLAIN,24);
 	
+	Rocketship rock = new Rocketship(250,700,50,50);
+	
+	ObjectManager go = new ObjectManager(rock);
+
 	GamePanel(){
 	time = new Timer(1000/60, this);
-	
-	
+
 	}
 	
-	@Override
-
-	
+	@Override	
 	
 	public void paintComponent(Graphics g){
 		if(currentState==MENU_STATE){
@@ -71,18 +72,38 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 			if(currentState > END_STATE){
 
                 currentState = MENU_STATE;
-
         }
-
-
+			
 		}
-		System.out.println("Yes");
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+			rock.right = true;
+		}else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+			rock.left = true;
+		}else if(e.getKeyCode()==KeyEvent.VK_UP){
+			rock.up = true;
+		}else if(e.getKeyCode()==KeyEvent.VK_DOWN){
+			rock.down = true;
+		}
+		
+		if(e.getKeyCode()==KeyEvent.VK_SPACE){
+			go.addProjectile(new Projectile(rock.x+20, rock.y, 10, 10));
+		}
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("No");
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+			rock.right = false;
+		}else if(e.getKeyCode()==KeyEvent.VK_LEFT){
+			rock.left = false;
+		}else if(e.getKeyCode()==KeyEvent.VK_UP){
+			rock.up = false;
+		}else if(e.getKeyCode()==KeyEvent.VK_DOWN){
+			rock.down = false;
+		}
 	}
 
 	@Override
@@ -110,12 +131,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	void updateGameState(){
-		
+	
+	
+		go.update();
 	}
 	
 	void drawGameState(Graphics g){
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
+	
+	
+		go.draw(g);
 	}
 	
 	void updateEndState(){
