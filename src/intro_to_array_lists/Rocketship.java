@@ -18,13 +18,17 @@ public class Rocketship extends GameObject {
 	}
 
 	void update(){
+		super.update();
 		if(right == true){
 			x += speed;
-		}else if(left == true){
+		}
+		if(left == true){
 			x -= speed;
-		}else if(up == true){
+		}
+		if(up == true){
 			y -= speed;
-		}else if(down == true){
+		}
+		if(down == true){
 			y += speed;
 		}
 		
@@ -32,7 +36,6 @@ public class Rocketship extends GameObject {
 	
 	void draw(Graphics g){
 	g.setColor(Color.BLUE);
-
     g.fillRect(x, y, width, height);
 }
 }

@@ -26,7 +26,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	Rocketship rock = new Rocketship(250,700,50,50);
 	
+	
 	ObjectManager go = new ObjectManager(rock);
+	
 
 	GamePanel(){
 	time = new Timer(1000/60, this);
@@ -73,7 +75,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
                 currentState = MENU_STATE;
         }
-			
+		if(currentState==GAME_STATE){
+			rock = new Rocketship(250,700,50,50);
+			go = new ObjectManager(rock);
+		}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			rock.right = true;
@@ -131,9 +136,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	void updateGameState(){
-	
-	
 		go.update();
+		go.manageEnemies();
+		go.checkCollision();
+		go.purgeObjects();
+		
+		if(rock.isAlive==false){
+			currentState=END_STATE;
+		}
+		
 	}
 	
 	void drawGameState(Graphics g){
@@ -156,7 +167,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.setColor(Color.WHITE);
 		g.drawString("GAME OVER", 125, 250);
 		g.setFont(instruction);
-		g.drawString("You killed " + " enemies", 150,300);
+		g.drawString("You killed " + go.getScore() + " enemies", 150,300);
 		g.drawString("Press Enter to restart", 150, 400);
 	}
 	
