@@ -98,10 +98,13 @@ public class ObjectManager {
 			for(int u = 0; u<project.size();u++){
 				if(ali.get(i).collisionBox.intersects(project.get(u).collisionBox)){
 					ali.get(i).isAlive=false;
+					project.get(u).isAlive=false;
 					score++;
 				}
 			}
 		}
+		
+		
 	}
 	
 	int getScore(){
